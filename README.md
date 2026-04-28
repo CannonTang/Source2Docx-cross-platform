@@ -131,3 +131,8 @@ xattr -dr com.apple.quarantine dist/Source2Docx-osx-arm64.app
 ```
 
 - 若要面向更多用户正式分发，仍建议后续接入 Apple Developer ID 签名与公证
+
+
+## 🔗 友情链接
+
+- [LINUX DO](https://linux.do/)
