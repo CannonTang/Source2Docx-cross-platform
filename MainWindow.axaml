@@ -1,0 +1,408 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="using:Source2Docx.Models"
+        xmlns:chrome="clr-namespace:Avalonia.Controls.Chrome;assembly=Avalonia.Controls"
+        mc:Ignorable="d"
+        x:Class="Source2Docx.MainWindow"
+        Width="1280"
+        Height="760"
+        MinWidth="980"
+        MinHeight="680"
+        Title="Source2Docx"
+        WindowDecorations="Full"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        Background="#E7EEF6">
+    <Window.Resources>
+        <LinearGradientBrush x:Key="ShellBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#F9FBFE" Offset="0" />
+            <GradientStop Color="#F0F5FA" Offset="0.42" />
+            <GradientStop Color="#E7EEF6" Offset="1" />
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="PanelBrush" Color="#F8FBFF" />
+        <SolidColorBrush x:Key="PanelBorderBrush" Color="#D4DEE8" />
+        <SolidColorBrush x:Key="AccentBrush" Color="#E1B04A" />
+        <SolidColorBrush x:Key="AccentSoftBrush" Color="#8B6218" />
+        <SolidColorBrush x:Key="TextBrush" Color="#18222D" />
+        <SolidColorBrush x:Key="MutedTextBrush" Color="#677A8D" />
+        <SolidColorBrush x:Key="InputBrush" Color="#EDF3F8" />
+        <SolidColorBrush x:Key="InputBorderBrush" Color="#C8D4DF" />
+        <SolidColorBrush x:Key="SecondaryButtonBrush" Color="#DCE8F2" />
+        <SolidColorBrush x:Key="DangerBrush" Color="#D75D66" />
+        <SolidColorBrush x:Key="GuideBrush" Color="#EEF4F8" />
+        <SolidColorBrush x:Key="TableSurfaceBrush" Color="#F6FAFD" />
+        <SolidColorBrush x:Key="TableBorderBrush" Color="#D2DDE8" />
+        <SolidColorBrush x:Key="HeaderBrush" Color="#E7EEF5" />
+        <SolidColorBrush x:Key="HeaderTextBrush" Color="#8B6218" />
+    </Window.Resources>
+
+    <Window.Styles>
+        <Style Selector="TextBlock.section-title">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+        </Style>
+        <Style Selector="TextBlock.section-desc">
+            <Setter Property="Foreground" Value="{StaticResource MutedTextBrush}" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+        <Style Selector="TextBlock.label">
+            <Setter Property="Foreground" Value="{StaticResource AccentSoftBrush}" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Margin" Value="0,0,0,7" />
+        </Style>
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="{StaticResource AccentBrush}" />
+            <Setter Property="Foreground" Value="#11161D" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Padding" Value="18,8" />
+            <Setter Property="Height" Value="44" />
+            <Setter Property="CornerRadius" Value="14" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style Selector="Button.secondary">
+            <Setter Property="Background" Value="{StaticResource SecondaryButtonBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Padding" Value="18,8" />
+            <Setter Property="Height" Value="44" />
+            <Setter Property="CornerRadius" Value="14" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style Selector="Button.danger">
+            <Setter Property="Background" Value="{StaticResource DangerBrush}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Padding" Value="18,8" />
+            <Setter Property="Height" Value="44" />
+            <Setter Property="CornerRadius" Value="14" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="{StaticResource InputBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource InputBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+            <Setter Property="Padding" Value="12,9" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="CornerRadius" Value="14" />
+        </Style>
+        <Style Selector="ComboBox">
+            <Setter Property="Background" Value="{StaticResource InputBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource InputBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+            <Setter Property="Padding" Value="12,8" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="CornerRadius" Value="14" />
+        </Style>
+        <Style Selector="ProgressBar">
+            <Setter Property="Foreground" Value="{StaticResource AccentBrush}" />
+            <Setter Property="Background" Value="#D4E0EB" />
+            <Setter Property="Height" Value="8" />
+        </Style>
+        <Style Selector="ListBox.file-list">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+        <Style Selector="ListBox.file-list > ListBoxItem">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Background" Value="#FDFEFF" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        </Style>
+        <Style Selector="ListBox.file-list > ListBoxItem:selected">
+            <Setter Property="Background" Value="#CFE4FB" />
+        </Style>
+    </Window.Styles>
+
+    <Border Margin="0"
+            Background="{StaticResource ShellBrush}"
+            CornerRadius="28"
+            ClipToBounds="True">
+        <Grid>
+            <Canvas IsHitTestVisible="False">
+                <Ellipse Width="280" Height="280" Fill="#10F4C76A" Canvas.Left="-70" Canvas.Top="80" />
+                <Ellipse Width="400" Height="400" Fill="#0E7CD4C5" Canvas.Right="-150" Canvas.Bottom="-140" />
+            </Canvas>
+
+            <Grid RowDefinitions="Auto,*" Margin="20,16,20,18">
+                <Border Grid.Row="0"
+                        Height="72"
+                        Background="Transparent"
+                        Padding="84,8,12,12"
+                        PointerPressed="TitleBar_PointerPressed"
+                        chrome:WindowDecorationProperties.ElementRole="TitleBar">
+                    <Grid>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="Source2Docx"
+                                       FontSize="24"
+                                       FontWeight="Bold"
+                                       Foreground="{StaticResource TextBrush}" />
+                            <TextBlock Text="源代码清洗与软著文档导出"
+                                       Margin="0,4,0,0"
+                                       FontSize="13"
+                                       Foreground="{StaticResource MutedTextBrush}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Grid Grid.Row="1"
+                      Margin="0,4,0,0"
+                      ColumnDefinitions="340,16,*">
+                    <Border Grid.Column="0"
+                            Background="{StaticResource PanelBrush}"
+                            BorderBrush="{StaticResource PanelBorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="24">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollBarVisibility="Disabled">
+                            <Grid Margin="18"
+                                  RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+                                <StackPanel>
+                                    <TextBlock Classes="section-title" Text="文档设置" />
+                                    <TextBlock Classes="section-desc"
+                                               Margin="0,4,0,0"
+                                               Text="配置文档信息、整理文件列表并生成 DOCX 输出。" />
+                                </StackPanel>
+
+                                <Grid Grid.Row="1"
+                                      Margin="0,16,0,0"
+                                      ColumnDefinitions="*,16,*">
+                                    <StackPanel>
+                                        <TextBlock Classes="label" Text="软件名称" />
+                                        <TextBox x:Name="SoftwareNameTextBox" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock Classes="label" Text="版本号" />
+                                        <TextBox x:Name="VersionTextBox" />
+                                    </StackPanel>
+                                </Grid>
+
+                                <StackPanel Grid.Row="2" Margin="0,12,0,0">
+                                    <TextBlock Classes="label" Text="代码类型" />
+                                    <ComboBox x:Name="CodeTypeComboBox" />
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="3" Margin="0,12,0,0">
+                                    <TextBlock Classes="label" Text="输出文档" />
+                                    <Grid ColumnDefinitions="*,10,86">
+                                        <TextBox x:Name="OutputPathTextBox" Grid.Column="0" />
+                                        <Button x:Name="BrowseOutputButton"
+                                                Grid.Column="2"
+                                                Classes="secondary"
+                                                Click="BrowseOutput_Click">浏览</Button>
+                                    </Grid>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="4" Margin="0,12,0,0">
+                                    <TextBlock Classes="label" Text="导出裁剪" />
+                                    <Border Background="{StaticResource GuideBrush}"
+                                            CornerRadius="16"
+                                            Padding="12">
+                                        <StackPanel>
+                                            <CheckBox x:Name="TrimPagesCheckBox" Click="TrimPagesCheckBox_Click">
+                                                生成后仅保留前 N 页和后 N 页
+                                            </CheckBox>
+                                            <Grid Margin="0,10,0,0"
+                                                  ColumnDefinitions="Auto,84"
+                                                  RowDefinitions="Auto,Auto">
+                                                <TextBlock VerticalAlignment="Center"
+                                                           Foreground="{StaticResource TextBrush}"
+                                                           Text="N 值" />
+                                                <TextBox x:Name="TrimPageCountTextBox"
+                                                         Grid.Column="1"
+                                                         Margin="10,0,0,0"
+                                                         LostFocus="TrimPageCountTextBox_LostFocus"
+                                                         HorizontalContentAlignment="Center" />
+                                                <TextBlock Grid.Row="1"
+                                                           Grid.ColumnSpan="2"
+                                                           Margin="0,8,0,0"
+                                                           MaxWidth="280"
+                                                           FontSize="12"
+                                                           Foreground="{StaticResource MutedTextBrush}"
+                                                           TextWrapping="Wrap"
+                                                           Text="当前移植版会在写入 DOCX 前按固定 50 行/页预裁剪；若源码存在超长行，最终页数可能与 2N 不完全一致。" />
+                                            </Grid>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="5" Margin="0,14,0,0">
+                                    <Button x:Name="GenerateButton"
+                                            Height="48"
+                                            Classes="primary"
+                                            Click="Generate_Click">开始生成</Button>
+                                    <Grid Margin="2,10,0,0" ColumnDefinitions="*,Auto">
+                                        <TextBlock x:Name="StatusTextBlock"
+                                                   FontSize="13"
+                                                   Foreground="{StaticResource AccentSoftBrush}"
+                                                   Text="等待开始" />
+                                        <TextBlock x:Name="ProgressTextBlock"
+                                                   Grid.Column="1"
+                                                   FontSize="12"
+                                                   Foreground="{StaticResource MutedTextBrush}"
+                                                   Text="0 / 0" />
+                                    </Grid>
+                                    <ProgressBar x:Name="GenerationProgressBar"
+                                                 Margin="0,8,0,0"
+                                                 Maximum="100"
+                                                 Value="0" />
+                                </StackPanel>
+
+                                <Border Grid.Row="6"
+                                        Margin="0,14,0,0"
+                                        Background="{StaticResource GuideBrush}"
+                                        CornerRadius="18"
+                                        Padding="12">
+                                    <StackPanel>
+                                        <TextBlock FontWeight="SemiBold"
+                                                   Foreground="{StaticResource TextBrush}"
+                                                   Text="处理说明" />
+                                        <TextBlock Margin="0,10,0,0"
+                                                   FontSize="12"
+                                                   Foreground="{StaticResource MutedTextBrush}"
+                                                   LineHeight="19"
+                                                   TextWrapping="Wrap"
+                                                   Text="1. 自动清洗源码注释并按当前列表顺序导出。&#x0a;2. 支持单独添加文件或按主文件递归导入目录。&#x0a;3. 裁剪功能为移植版近似实现，会在写入 DOCX 前按 50 行/页预裁剪；若源码行在文档中发生折行，最终页数可能偏离目标值。" />
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </ScrollViewer>
+                    </Border>
+
+                    <Border Grid.Column="2"
+                            Background="{StaticResource PanelBrush}"
+                            BorderBrush="{StaticResource PanelBorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="24">
+                        <Grid Margin="18"
+                              RowDefinitions="Auto,Auto,*,Auto">
+                            <Grid ColumnDefinitions="*,340">
+                                <StackPanel>
+                                    <TextBlock Classes="section-title" Text="源文件列表" />
+                                    <TextBlock x:Name="FileSummaryTextBlock"
+                                               Margin="0,6,0,0"
+                                               FontSize="13"
+                                               Foreground="{StaticResource MutedTextBrush}"
+                                               Text="尚未添加文件" />
+                                </StackPanel>
+                                <Border Grid.Column="1"
+                                        Background="#E8F0F7"
+                                        CornerRadius="18"
+                                        Padding="12,8"
+                                        VerticalAlignment="Top">
+                                    <StackPanel>
+                                        <TextBlock FontSize="12"
+                                                   Foreground="{StaticResource AccentSoftBrush}"
+                                                   TextWrapping="Wrap"
+                                                   Text="拖动调整顺序前，请先在表格中选中目标行。" />
+                                        <TextBlock Margin="0,6,0,0"
+                                                   FontSize="12"
+                                                   Foreground="{StaticResource MutedTextBrush}"
+                                                   TextWrapping="Wrap"
+                                                   Text="生成文档时，代码会按右侧列表顺序依次写入；通常建议将程序入口放在最前面，并将结束部分放在最后面。" />
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+
+                            <WrapPanel Grid.Row="1" Margin="0,14,0,12" ItemHeight="44">
+                                <Button x:Name="AddFilesButton" Classes="secondary" MinWidth="120" Margin="0,0,10,10" Click="AddFiles_Click">增加文件</Button>
+                                <Button x:Name="ImportFolderButton" Classes="secondary" MinWidth="120" Margin="0,0,10,10" Click="ImportFolder_Click">导入文件夹</Button>
+                                <Button x:Name="AddFolderButton" Classes="secondary" MinWidth="120" Margin="0,0,10,10" Click="AddFolder_Click">主文件+目录</Button>
+                                <Button x:Name="ToggleCheckAllButton" Classes="secondary" MinWidth="120" Margin="0,0,10,10" Click="ToggleCheckAll_Click">全部勾选</Button>
+                                <Button x:Name="RemoveCheckedButton" Classes="danger" MinWidth="120" Margin="0,0,10,10" Click="RemoveChecked_Click">删除勾选</Button>
+                                <Button x:Name="MoveTopButton" Classes="secondary" MinWidth="90" Margin="0,0,10,10" Click="MoveTop_Click">置顶</Button>
+                                <Button x:Name="MoveUpButton" Classes="secondary" MinWidth="90" Margin="0,0,10,10" Click="MoveUp_Click">上移</Button>
+                                <Button x:Name="MoveDownButton" Classes="secondary" MinWidth="90" Margin="0,0,10,10" Click="MoveDown_Click">下移</Button>
+                            </WrapPanel>
+
+                            <Border Grid.Row="2"
+                                    Background="{StaticResource TableSurfaceBrush}"
+                                    BorderBrush="{StaticResource TableBorderBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="18"
+                                    Padding="1">
+                                <Grid RowDefinitions="Auto,*">
+                                    <Border Background="{StaticResource HeaderBrush}"
+                                            CornerRadius="16,16,0,0"
+                                            Padding="14,10">
+                                        <Grid ColumnDefinitions="72,220,*">
+                                            <TextBlock FontWeight="SemiBold" Foreground="{StaticResource HeaderTextBrush}" Text="勾选" />
+                                            <TextBlock Grid.Column="1" FontWeight="SemiBold" Foreground="{StaticResource HeaderTextBrush}" Text="文件名" />
+                                            <TextBlock Grid.Column="2" FontWeight="SemiBold" Foreground="{StaticResource HeaderTextBrush}" Text="完整路径" />
+                                        </Grid>
+                                    </Border>
+
+                                    <ListBox x:Name="FilesListBox"
+                                             Grid.Row="1"
+                                             Classes="file-list"
+                                             SelectionMode="Multiple"
+                                             PointerPressed="FilesListBox_PointerPressed"
+                                             PointerMoved="FilesListBox_PointerMoved"
+                                             SelectionChanged="FilesListBox_SelectionChanged">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate x:DataType="models:SourceFileItem">
+                                                <Border Classes="item-row"
+                                                        Background="{Binding $parent[ListBoxItem].Background}"
+                                                        Padding="14,10"
+                                                        BorderBrush="#D8E2EC"
+                                                        BorderThickness="0,0,0,1">
+                                                    <Grid ColumnDefinitions="72,220,*">
+                                                        <CheckBox IsChecked="{Binding IsChecked}" VerticalAlignment="Center" />
+                                                        <TextBlock Grid.Column="1"
+                                                                   VerticalAlignment="Center"
+                                                                   FontWeight="SemiBold"
+                                                                   Foreground="{StaticResource TextBrush}"
+                                                                   Text="{Binding Name}" />
+                                                        <TextBlock Grid.Column="2"
+                                                                   VerticalAlignment="Center"
+                                                                   Foreground="{StaticResource MutedTextBrush}"
+                                                                   TextWrapping="Wrap"
+                                                                   Text="{Binding FullPath}" />
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </Grid>
+                            </Border>
+
+                            <Grid Grid.Row="3"
+                                  Margin="0,14,0,0"
+                                  ColumnDefinitions="*,Auto">
+                                <TextBlock VerticalAlignment="Center"
+                                           Foreground="{StaticResource MutedTextBrush}"
+                                           Text="同一文件只会被导入一次；重复文件会自动忽略，仍可按需要手工调整顺序。" />
+                                <TextBlock x:Name="SelectionHintTextBlock"
+                                           Grid.Column="1"
+                                           VerticalAlignment="Center"
+                                           Foreground="{StaticResource AccentSoftBrush}"
+                                           Text="当前未选中任何行" />
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <TextBlock Grid.Row="1"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Bottom"
+                           Margin="0,0,8,2"
+                           FontSize="11"
+                           FontStyle="Italic"
+                           Opacity="0.78"
+                           Foreground="{StaticResource MutedTextBrush}"
+                           Text="by windbylocus" />
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

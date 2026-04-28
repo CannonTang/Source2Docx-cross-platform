@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+
+# JetBrains Rider / IntelliJ
+.idea/
+*.sln.iml
+
+# .NET build output
+**/bin/
+**/obj/
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+
+# Logs
+*.log
+
+# Local release artifacts
+dist/
